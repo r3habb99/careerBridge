@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Strategy: AMD to BLR/HYD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin: 0 auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .gemini-gradient { background: linear-gradient(90deg, #4f46e5, #9333ea); }
+        .loading-shimmer { background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    </style>
+    <!-- Chosen Palette: Slate & Indigo - Professional, trustworthy, clean. -->
+    <!-- Application Structure Plan: 
+         1. Header: Navigation and Logo.
+         2. Hero: Big picture transition.
+         3. Market Data: Charts comparing salary and demand.
+         4. Gemini Labs: NEW SECTION for AI-powered personalization.
+         5. The Stack: Detailed technology breakdown.
+         6. Roadmap: Learning timeline.
+         Why: Keeps data at the top to convince the user, then provides tools to execute. -->
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-slate-900 tracking-tight">Career<span class="text-indigo-600">Bridge</span></span>
+                    <span class="ml-2 px-2 py-0.5 text-[10px] bg-indigo-100 text-indigo-700 font-bold rounded uppercase">AI Enhanced</span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <button onclick="scrollToSection('market-analysis')" class="text-sm font-medium hover:text-indigo-600 transition">Market Data</button>
+                    <button onclick="scrollToSection('gemini-labs')" class="text-sm font-medium hover:text-indigo-600 transition font-bold text-indigo-600">✨ AI Tools</button>
+                    <button onclick="scrollToSection('tech-stack')" class="text-sm font-medium hover:text-indigo-600 transition">The Stack</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-indigo-900 text-white py-12 sm:py-20 overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
+                Strategy: Ahmedabad <span class="text-indigo-300">→</span> Bangalore
+            </h1>
+            <p class="text-lg sm:text-xl text-indigo-100 max-w-3xl mx-auto mb-8">
+                Move from Jr. Backend Engineer to Senior MERN Cloud Engineer with personalized AI guidance.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <div class="bg-indigo-800 rounded-lg px-6 py-3 border border-indigo-600">
+                    <span class="block text-xs font-semibold uppercase tracking-wide text-indigo-300">Goal</span>
+                    <span class="text-xl font-bold">12-15 LPA Package</span>
+                </div>
+                <button onclick="scrollToSection('gemini-labs')" class="bg-white text-indigo-900 font-bold px-6 py-3 rounded-lg hover:bg-indigo-50 transition flex items-center justify-center shadow-lg">
+                    ✨ Personalize My Strategy
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-20">
+
+        <!-- SECTION: Market Analysis -->
+        <section id="market-analysis" class="scroll-mt-20">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Market Opportunity Analysis</h2>
+                <p class="text-slate-600 max-w-3xl">Comparison of 2-4 YOE salary and job demand across tech hubs.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-semibold mb-4">Avg Salary (LPA) for 2-4 YOE</h3>
+                    <div class="chart-container"><canvas id="salaryChart"></canvas></div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-semibold mb-4">Skill Demand Distribution</h3>
+                    <div class="chart-container"><canvas id="demandChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Gemini Labs (AI FEATURES) -->
+        <section id="gemini-labs" class="scroll-mt-20 p-8 rounded-3xl bg-indigo-50 border border-indigo-100 shadow-inner">
+            <div class="mb-10 text-center">
+                <span class="px-3 py-1 bg-indigo-200 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-widest">Experimental</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-4">Gemini AI Strategy Labs</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto mt-2">Use the power of Google's Gemini to customize your transition plan from Ahmedabad to the major tech hubs.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- AI Tool 1: Roadmap -->
+                <div class="bg-white p-6 rounded-2xl shadow-md flex flex-col h-full border border-indigo-200">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold flex items-center">
+                            <span class="mr-2">🗺️</span> Custom Roadmap
+                        </h3>
+                        <p class="text-sm text-slate-500 mt-1">Get a week-by-week plan based on what you already know.</p>
+                    </div>
+                    <textarea id="currentSkills" class="w-full p-3 text-sm border rounded-lg h-24 mb-4 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" placeholder="Enter skills you have (e.g., Node.js, MySQL, Express, Basic React)..."></textarea>
+                    <button id="genRoadmapBtn" onclick="generateAIRoadmap()" class="w-full py-3 rounded-lg gemini-gradient text-white font-bold text-sm hover:opacity-90 transition shadow-md mt-auto">
+                        ✨ Generate Custom Roadmap
+                    </button>
+                </div>
+
+                <!-- AI Tool 2: Interview Prep -->
+                <div class="bg-white p-6 rounded-2xl shadow-md flex flex-col h-full border border-indigo-200">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold flex items-center">
+                            <span class="mr-2">🎙️</span> Interview Coach
+                        </h3>
+                        <p class="text-sm text-slate-500 mt-1">Generate tough questions you'll face in BLR/HYD rounds.</p>
+                    </div>
+                    <select id="interviewFocus" class="w-full p-3 text-sm border rounded-lg mb-4 outline-none">
+                        <option value="Advanced Node.js & Architecture">Advanced Node.js & Architecture</option>
+                        <option value="MERN Full Stack & React Hooks">MERN Full Stack & React Hooks</option>
+                        <option value="System Design (LPA 12+ standard)">System Design (LPA 12+ standard)</option>
+                        <option value="Cloud (AWS) & DevOps">Cloud (AWS) & DevOps</option>
+                    </select>
+                    <button onclick="generateAIQuestions()" class="w-full py-3 rounded-lg gemini-gradient text-white font-bold text-sm hover:opacity-90 transition shadow-md mt-auto">
+                        ✨ Generate Interview Questions
+                    </button>
+                </div>
+
+                <!-- AI Tool 3: Resume Polish -->
+                <div class="bg-white p-6 rounded-2xl shadow-md flex flex-col h-full border border-indigo-200">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold flex items-center">
+                            <span class="mr-2">📄</span> Resume Optimizer
+                        </h3>
+                        <p class="text-sm text-slate-500 mt-1">Turn "Created APIs" into "Architected high-scale RESTful services."</p>
+                    </div>
+                    <textarea id="resumeBullet" class="w-full p-3 text-sm border rounded-lg h-24 mb-4 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" placeholder="Paste a bullet point from your resume..."></textarea>
+                    <button onclick="optimizeResume()" class="w-full py-3 rounded-lg gemini-gradient text-white font-bold text-sm hover:opacity-90 transition shadow-md mt-auto">
+                        ✨ Optimize Resume Point
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Output Area -->
+            <div id="aiOutput" class="mt-10 bg-white rounded-2xl p-6 shadow-xl border border-indigo-100 hidden fade-in">
+                <div class="flex justify-between items-center mb-4 pb-4 border-b">
+                    <h3 id="outputTitle" class="font-bold text-indigo-900">AI Result</h3>
+                    <button onclick="closeOutput()" class="text-slate-400 hover:text-slate-600">✕</button>
+                </div>
+                <div id="outputContent" class="text-slate-700 leading-relaxed whitespace-pre-wrap prose prose-indigo max-w-none text-sm sm:text-base">
+                    <!-- Result will appear here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Tech Stack Details -->
+        <section id="tech-stack" class="scroll-mt-20">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">The Target Stack</h2>
+                <p class="text-slate-600">Recommended skills to transition into Tier-1 product companies.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="stackGrid">
+                <!-- Stack cards populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-4">Powered by <strong>Gemini 2.5 Flash</strong></p>
+            <p class="text-xs">&copy; 2025 CareerBridge. Designed for Node.js developers seeking growth.</p>
+        </div>
+    </footer>
+
+    <script>
+        const apiKey = ""; // Provided at runtime
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'career-upgrade';
+
+        // --- Gemini Integration Logic ---
+        
+        async function callGemini(prompt) {
+            const outputDiv = document.getElementById('aiOutput');
+            const contentDiv = document.getElementById('outputContent');
+            
+            outputDiv.classList.remove('hidden');
+            contentDiv.innerHTML = '<div class="h-4 w-3/4 loading-shimmer rounded mb-2"></div><div class="h-4 w-1/2 loading-shimmer rounded"></div>';
+            outputDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            let retries = 0;
+            const maxRetries = 5;
+
+            while (retries < maxRetries) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            systemInstruction: { parts: [{ text: "You are an expert tech recruiter and technical architect based in Bangalore. You help software engineers move from Tier-2 cities like Ahmedabad to major tech hubs. Provide structured, high-impact, and professional advice. Use markdown for lists and bold text." }] }
+                        })
+                    });
+
+                    if (!response.ok) throw new Error('API request failed');
+                    
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (!text) throw new Error('No content received');
+                    
+                    return text;
+                } catch (err) {
+                    retries++;
+                    if (retries === maxRetries) throw err;
+                    await new Promise(res => setTimeout(res, Math.pow(2, retries) * 1000));
+                }
+            }
+        }
+
+        async function generateAIRoadmap() {
+            const skills = document.getElementById('currentSkills').value;
+            if (!skills) return alert("Please list your current skills.");
+            
+            document.getElementById('outputTitle').innerText = "✨ Your Personalized 12-Week Roadmap";
+            const prompt = `I am a Junior Software Engineer in Ahmedabad with 2 years of experience. My current skills are: ${skills}. Create a detailed 12-week roadmap for me to transition to a high-paying MERN + TypeScript + Cloud role in Bangalore. Focus on filling the gaps between my current knowledge and what top startups in Bangalore require.`;
+            
+            try {
+                const text = await callGemini(prompt);
+                document.getElementById('outputContent').innerText = text;
+            } catch (e) {
+                document.getElementById('outputContent').innerText = "Error connecting to AI. Please try again later.";
+            }
+        }
+
+        async function generateAIQuestions() {
+            const focus = document.getElementById('interviewFocus').value;
+            document.getElementById('outputTitle').innerText = `✨ Top Interview Questions: ${focus}`;
+            const prompt = `Generate 5 high-quality technical interview questions (and brief answers) that a Senior Engineer in a Bangalore Unicorn startup would ask a candidate with 2 years experience regarding: ${focus}. Focus on practical scenarios and depth of understanding.`;
+            
+            try {
+                const text = await callGemini(prompt);
+                document.getElementById('outputContent').innerText = text;
+            } catch (e) {
+                document.getElementById('outputContent').innerText = "Error connecting to AI.";
+            }
+        }
+
+        async function optimizeResume() {
+            const bullet = document.getElementById('resumeBullet').value;
+            if (!bullet) return alert("Please paste a resume point.");
+            
+            document.getElementById('outputTitle').innerText = "✨ Optimized Resume Point";
+            const prompt = `I have this bullet point on my resume: "${bullet}". I am applying for jobs in Bangalore where competition is high. Rewrite this to sound more senior, impact-oriented, and technically deep. Show two variations: one for product companies and one for high-scale startups.`;
+            
+            try {
+                const text = await callGemini(prompt);
+                document.getElementById('outputContent').innerText = text;
+            } catch (e) {
+                document.getElementById('outputContent').innerText = "Error connecting to AI.";
+            }
+        }
+
+        function closeOutput() {
+            document.getElementById('aiOutput').classList.add('hidden');
+        }
+
+        // --- Original Logic & Charts ---
+
+        const stackInfo = [
+            { title: 'TypeScript', desc: 'Enterprise grade type safety for Node.js.', icon: 'TS' },
+            { title: 'React.js', desc: 'The leading library for front-end demand.', icon: 'RT' },
+            { title: 'Next.js', desc: 'Framework for performance and SEO.', icon: 'NX' },
+            { title: 'AWS Cloud', desc: 'Deploy and scale using EC2, S3, and Lambda.', icon: 'AW' }
+        ];
+
+        function init() {
+            renderStack();
+            initCharts();
+        }
+
+        function renderStack() {
+            const grid = document.getElementById('stackGrid');
+            stackInfo.forEach(item => {
+                grid.innerHTML += `
+                    <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                        <div class="w-10 h-10 bg-indigo-100 text-indigo-700 rounded-lg flex items-center justify-center font-bold mb-4">${item.icon}</div>
+                        <h4 class="font-bold mb-1">${item.title}</h4>
+                        <p class="text-xs text-slate-500">${item.desc}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function initCharts() {
+            const ctxSalary = document.getElementById('salaryChart').getContext('2d');
+            new Chart(ctxSalary, {
+                type: 'bar',
+                data: {
+                    labels: ['Ahmedabad', 'Hyderabad', 'Bangalore'],
+                    datasets: [{ label: 'LPA', data: [5.5, 9.5, 12], backgroundColor: ['#94a3b8', '#818cf8', '#4f46e5'], borderRadius: 6 }]
+                },
+                options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            const ctxDemand = document.getElementById('demandChart').getContext('2d');
+            new Chart(ctxDemand, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Node.js Backend', 'MERN Stack', 'Java/Spring', 'Python'],
+                    datasets: [{ data: [20, 50, 20, 10], backgroundColor: ['#cbd5e1', '#4f46e5', '#94a3b8', '#e2e8f0'], borderWeight: 0 }]
+                },
+                options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
